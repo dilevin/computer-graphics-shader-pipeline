@@ -86,6 +86,7 @@ padding: 45px;
 <span class="math">\(\renewcommand{\hat}[1]{\widehat{#1}}\)</span>
 </div>
 
+
 <h1 id="computergraphics–shaderpipeline">Computer Graphics – Shader Pipeline</h1>
 
 <blockquote>
@@ -236,7 +237,7 @@ implementation. As the shader programmer, you have control over:</p>
 
 <ul>
 <li>the number of new edges each input each should split into
-(<code>gl_TessLevelOuter[1] = 5</code> means the edge across from vertex <code>0</code> (i.e., the
+(<code>gl_TessLevelOuter[1] = 5</code> means the edge across from vertex <code>1</code> (i.e., the
 edge between vertices <code>0</code> and <code>2</code>) should be split into 5 edges); and</li>
 <li>the number of edges to place toward the center of the patch
 (<code>gl_TessLevelInner[0] = 5</code> would be a good choice if
@@ -250,7 +251,7 @@ responsibility of this shader is setting the <code>gl_TessLevelOuter</code> and
 
 <blockquote>
 <p><strong>Question:</strong> If the amount of subdivision along each edge is determined
-indecently for each triangle, how can we make sure neighboring triangles
+independently for each triangle, how can we make sure neighboring triangles
 subdivide their shared edge the same amount?</p>
 
 <p><strong>Hint:</strong> ✌️</p>
@@ -292,7 +293,7 @@ for each shader. For example, in <code>data/test-01.json</code> you&#8217;ll see
 </code></pre>
 
 <p>This indicates that the string for the vertex shader is the concatenation of two
-(2) files <code>../src/version410.glsl</code> and then <code>&quot;../solution/pass-through.glsl</code>.
+(2) files <code>../src/version410.glsl</code> and then <code>&quot;../src/pass-through.vs&quot;</code>.
 Similarly, for each of the other shaders.</p>
 
 <h3 id="shaderdebugging">Shader debugging</h3>
@@ -439,6 +440,8 @@ image: </p>
 
 <h3 id="srcrotate_about_y.glsl"><code>src/rotate_about_y.glsl</code></h3>
 
+<h3 id="srcmodel.glsl"><code>src/model.glsl</code></h3>
+
 <h3 id="srcmodel_view_projection.vs"><code>src/model_view_projection.vs</code></h3>
 
 <h3 id="srcblue_and_gray.fs"><code>src/blue_and_gray.fs</code></h3>
@@ -481,7 +484,7 @@ transformations. This gives your shapes a round appearance if you run
 
 <h3 id="blinn_phong.glsl"><code>blinn_phong.glsl</code></h3>
 
-<h3 id="lit.glsl"><code>lit.glsl</code></h3>
+<h3 id="lit.fs"><code>lit.fs</code></h3>
 
 <p>Running <code>./shaderpipeline ../data/test-05.json</code> adds light to the scene and we
 see a smooth appearance with specular highlights: </p>
@@ -492,9 +495,17 @@ see a smooth appearance with specular highlights: </p>
 
 <h3 id="random_direction.glsl"><code>random_direction.glsl</code></h3>
 
-<h3 id="noise.glsl"><code>noise.glsl</code></h3>
+<h3 id="smooth_step.glsl"><code>smooth_step.glsl</code></h3>
+
+<h3 id="perlin_noise.glsl"><code>perlin_noise.glsl</code></h3>
 
 <h3 id="procedural_color.glsl"><code>procedural_color.glsl</code></h3>
+
+<p>Be creative! Your procedural colored shape does not need to look like marble
+specifically and does not need to match the example. Mix and match different
+noise frequencies and use <a href="https://en.wikipedia.org/wiki/Function_composition">function
+composition</a> to create an
+interesting, complex pattern.</p>
 
 <p>Running <code>./shaderpipeline ../data/test-06.json</code> adds a procedural <em>color</em> to the
 objects. The color should <em><strong>not</strong></em> change based on the view or model
@@ -507,8 +518,6 @@ transformation. For example, this animation attempts to recreate a
 
 <h3 id="improved_smooth_step.glsl"><code>improved_smooth_step.glsl</code></h3>
 
-<h3 id="smooth_heaviside.glsl"><code>smooth_heaviside.glsl</code></h3>
-
 <h3 id="improved_perlin_noise.glsl"><code>improved_perlin_noise.glsl</code></h3>
 
 <h3 id="bump_height.glsl"><code>bump_height.glsl</code></h3>
@@ -516,6 +525,8 @@ transformation. For example, this animation attempts to recreate a
 <h3 id="bump_position.glsl"><code>bump_position.glsl</code></h3>
 
 <h3 id="bump.fs"><code>bump.fs</code></h3>
+
+<p>Be creative! Your bumpy shape does not need to match the example.</p>
 
 <p>Running <code>./shaderpipeline ../data/test-07.json</code> adds a <a href="https://en.wikipedia.org/wiki/Normal_mapping">normal
 map</a> determined by differentiating
@@ -535,6 +546,14 @@ top of <code>bump.fs</code>; do not modify the .json files.</p>
 
 <p>For this file, you <em><strong>may</strong></em> declare new functions: declare them directly at the
 top of <code>planet.fs</code>; do not modify the .json files.</p>
+
+<p>Be creative! Your planets do not need to look like the earth/moon and do not
+need to look like the example planets.</p>
+
+<blockquote>
+<p><strong>Hint:</strong> Sprinkle noise on <em>everything</em>: diffuse color, specular color,
+normals, specular exponents, color over time.</p>
+</blockquote>
 
 <p>Running <code>./shaderpipeline ../data/test-08.json</code> should display a creative planet
 scene. For example: </p>
